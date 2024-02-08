@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class retrieveWeather {
+public class RetrieveWeather {
     JsonObject getJson(String city) {
         try {
             APIKey api = new APIKey();

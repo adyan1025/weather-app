@@ -9,7 +9,7 @@ public class Main {
         System.out.println("Enter the name of the city: ");
         String city = scanner.nextLine();
 
-        retrieveWeather weatherObject = new retrieveWeather();
+        RetrieveWeather weatherObject = new RetrieveWeather();
         JsonObject weather = weatherObject.getJson(city);
         if (weather == null) {
             System.out.println("ERROR!");
