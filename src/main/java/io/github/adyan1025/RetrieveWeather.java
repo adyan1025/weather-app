@@ -3,17 +3,24 @@ package io.github.adyan1025;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class RetrieveWeather {
     JsonObject getJson(String city) {
         try {
-            APIKey api = new APIKey();
-            String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + api.getAPIKey();
+            InputStream apiKeyStream = RetrieveWeather.class.getResourceAsStream("/apikey.txt");
+            String apiKey = "";
+            if (apiKeyStream != null) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(apiKeyStream));
+                apiKey = br.readLine();
+            }
+            else {
+                System.err.println("File not found!");
+            }
+
+            String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
             URL url = new URL(apiUrl);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

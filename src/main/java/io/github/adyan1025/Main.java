@@ -27,9 +27,6 @@ public class Main {
         if (repeat == 1) {
             main(args);
         }
-        else {
-            return;
-        }
     }
 
     public static String kelvinToFahrenheit(String kelvinString) {
