@@ -12,7 +12,6 @@ public class Main {
         RetrieveWeather weatherObject = new RetrieveWeather();
         JsonObject weather = weatherObject.getJson(city);
         if (weather == null) {
-            System.out.println("ERROR!");
             return;
         }
         JsonObject tempObj = weather.getAsJsonObject("main");
