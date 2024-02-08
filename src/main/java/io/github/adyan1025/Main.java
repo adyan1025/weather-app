@@ -5,6 +5,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        getWeather();
+    }
+
+    public static void getWeather() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the name of the city: ");
         String city = scanner.nextLine();
@@ -12,6 +16,7 @@ public class Main {
         RetrieveWeather weatherObject = new RetrieveWeather();
         JsonObject weather = weatherObject.getJson(city);
         if (weather == null) {
+            getWeather();
             return;
         }
         JsonObject tempObj = weather.getAsJsonObject("main");
@@ -24,10 +29,9 @@ public class Main {
         System.out.println("Try again? (1 for yes 0 for no)");
         int repeat = scanner.nextInt();
         if (repeat == 1) {
-            main(args);
+            getWeather();
         }
     }
-
     public static String kelvinToFahrenheit(String kelvinString) {
         double kelvin = Double.parseDouble(kelvinString);
         int fahrenheit = (int) ((kelvin - 273.15) * 9/5 + 32);
