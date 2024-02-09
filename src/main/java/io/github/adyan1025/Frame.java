@@ -15,23 +15,34 @@ public class Frame extends JFrame implements ActionListener, KeyListener {
     JLabel tempLabel;
     Frame() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(300, 300);
-        this.setLayout(new FlowLayout());
+        this.setSize(600, 400);
+        this.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.getContentPane().setBackground(Color.black);
 
         cityLabel = new JLabel("Enter the city: ");
         response = new JTextField(20);
         submit = new JButton("Submit");
-        submit.addActionListener(this);
-        response.addKeyListener(this);
         tempLabel = new JLabel();
 
-        cityLabel.setFont(new Font("Serif", Font.PLAIN, 30));
-        tempLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+        submit.addActionListener(this);
+        response.addKeyListener(this);
+
+        cityLabel.setFont(new Font("Roboto", Font.PLAIN, 30));
+        tempLabel.setFont(new Font("Roboto", Font.PLAIN, 50));
+        response.setFont(new Font("Roboto", Font.PLAIN, 30));
+        submit.setFont(new Font("Roboto", Font.PLAIN, 30));
+        cityLabel.setForeground(Color.white);
+        tempLabel.setForeground(Color.white);
+        response.setForeground(Color.white);
+        response.setBackground(Color.black);
+        response.setMaximumSize(new Dimension(1000, 50));
+        submit.setPreferredSize(new Dimension(200, 50));
 
         this.add(cityLabel);
         this.add(response);
         this.add(submit);
         this.add(tempLabel);
+
         this.setVisible(true);
     }
 
