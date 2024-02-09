@@ -1,37 +1,44 @@
 package io.github.adyan1025;
-
 import com.google.gson.JsonObject;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        getWeather();
+        Frame frame = new Frame();
+
+        while (true) {
+            getWeather(frame);
+        }
+
     }
 
-    public static void getWeather() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the name of the city: ");
-        String city = scanner.nextLine();
+    public static void getWeather(Frame frame) {
+        String city;
+        while (frame.getCity().isEmpty()) {
+            try {
+                Thread.sleep(100); // Sleep to avoid busy waiting
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        city = frame.getCity();
 
         RetrieveWeather weatherObject = new RetrieveWeather();
         JsonObject weather = weatherObject.getJson(city);
+
         if (weather == null) {
-            getWeather();
-            return;
+            frame.setTemp("CITY NOT FOUND!");
         }
-        JsonObject tempObj = weather.getAsJsonObject("main");
+        else {
+            JsonObject tempObj = weather.getAsJsonObject("main");
+            String temp = tempObj.get("temp").toString();
 
-        String temp = tempObj.get("temp").toString();
-        temp = kelvinToFahrenheit(temp);
-        city = removeQuote(city);
-        System.out.println("The temperature at "+city+" is "+temp+" degrees!");
-
-        System.out.println("Try again? (1 for yes 0 for no)");
-        int repeat = scanner.nextInt();
-        if (repeat == 1) {
-            getWeather();
+            temp = kelvinToFahrenheit(temp);
+            //city = removeQuote(city);
+            frame.setTemp("The temperature is " + temp);
         }
     }
+
+    //kelvin to fahrenheit formula and removing a quote program
     public static String kelvinToFahrenheit(String kelvinString) {
         double kelvin = Double.parseDouble(kelvinString);
         int fahrenheit = (int) ((kelvin - 273.15) * 9/5 + 32);

@@ -50,7 +50,7 @@ public class RetrieveWeather {
             connection.disconnect();
         }
         catch (IOException e) {
-            System.out.println("ERROR: City cannot be found.");
+            return null;
         }
         return null;
     }
